@@ -43,9 +43,19 @@ export default {
 </script>
 
 <style>
+	#app{
+		max-width: 750px;
+		margin: 0 auto;
+	}
+	.footer-box{
+		max-width: 750px;
+	}
+	.all-header,.header{
+		max-width: 750px;
+	}
 .child-view {
   width:100%;
-  padding-top: 45px;
+  padding-top:0.88rem;
   transition: all .8s cubic-bezier(.55,0,.1,1);
 }
 .vux-pop-out-enter-active,

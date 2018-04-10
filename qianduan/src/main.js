@@ -35,6 +35,12 @@ history.setItem('/orderList', 2);
 history.setItem('/goodsList', 3);
 history.setItem('/cartList', 4);
 router.beforeEach(function (to, from, next) {    //to.path:即将进入的路由   from.path:当前离开的路由
+	/*
+	 *   记录路由切换的地址，根据值的大小实现左右切换，当前路由的值小于即将进入的路由，就向左滑动，反之向右滑动
+	 *  
+	 * 
+	 * 
+	 * */
 	const toIndex = history.getItem(to.path);
 	const fromIndex = history.getItem(from.path);
 	if (toIndex) {   
@@ -49,7 +55,33 @@ router.beforeEach(function (to, from, next) {    //to.path:即将进入的路由
 	    to.path !== '/'  &&  history.setItem(to.path, historyCount);
 	    store.commit('UPDATE_DIRECTION', {direction: 'forward'})
 	}
-    next()
+	/*
+	 * arry.some(callback[, thisArg])：es5的写法，数组中的每个元素都调用callback回调函数，如果数组中的元素有一个满足回调函数的判断，就输出true,否则就输出false。相当与||
+	 * arry.every(callback[, thisArg])：es5的写法，数组中的每个元素都调用callback回调函数，如果数组中的元素有一个不满足回调函数的判断，就输出false,否则就输出true。相当与&&
+	 * m => m：箭头函数  
+	 * function(m){
+	 * 		return m;
+	 * }
+	 * () => m:
+	 *  function(){
+	 * 		return m;
+	 * }
+	 * 判断，如果需要登录的话，就跳转到登录页面，并且记录下要回到的路劲，登录成功回到原页面
+	 *
+	 */
+	if(to.matched.some(record => record.meta.mustLogin)){
+		
+		if(window.localStorage.logined){
+			next()
+		}else{
+			next({
+				path:"/login",
+				query:{redirect:to.fullPath}//跳转到登录页面的时候带着本页面的路由过去，登录成功后可以返回本页面
+			});
+		}
+	}else{
+		next();
+	}
 });
 
 //引入axios

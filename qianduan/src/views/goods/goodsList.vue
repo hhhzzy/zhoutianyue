@@ -31,10 +31,12 @@
 			}
 		},
 		methods:{
+			//添加current
 			addCurrent(ind){
 				var _this = this;
 				this.cur = ind;
-			}
+			},
+			
 		},
 	}
 </script>

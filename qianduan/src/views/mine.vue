@@ -6,7 +6,7 @@
 					<dl class="msgList j-child-num">
 						<dd class="jShowHead"><a href="##"><span class="uIcon right"></span>头像</a></dd>
 						<dd><a href=""><span class="uNum right">541313133</span>用户名</a></dd>
-						<dd class="jShowHead"><a class="borNoBtm" href="##">个人基本信息</a></dd>
+						<dd class="jShowHead"><a class="borNoBtm" href="##">修改基本信息</a></dd>
 						<dt>账号绑定</dt>
 						<dd class="child-4"><a href=""><span class="uNum right">186****1157</span>手机</a></dd>
 						<dd class="child-5"><a href=""><span class="uText right">未绑定</span>微信</a></dd>
@@ -48,7 +48,7 @@
 	.accountMsg{padding-top: 3%; font-size: 0.3rem;}
 	.accountMsg .msgList{border-bottom: 1px solid #ccc;}
 	.accountMsg .msgList dd{ padding: 0 0 0 3.125%; background: #fff;}
-	.accountMsg .msgList dd a{display: block; padding-right: 11%; height: 3.76em; line-height: 3.76; border-bottom: 1px solid #ccc; background:url(../assets/images/member-next-black.png) 95% center no-repeat; -webkit-background-size: auto 30%;background-size: auto 30%;}
+	.accountMsg .msgList dd a{display: block; margin-right: 5%; height: 3.76em; line-height: 3.76; border-bottom: 1px solid #ccc; -webkit-background-size: auto 30%;background-size: auto 30%;}
 	.accountMsg .msgList dt{background-color: #eeeeee;height: 3.27em; line-height: 3.27em; padding: 0 3.125%; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; font-size: 0.26rem;}
 	.accountMsg .msgList dd .uNum{color: #999;}
 	.accountMsg .msgList dd .uText{color: #ff7200;}

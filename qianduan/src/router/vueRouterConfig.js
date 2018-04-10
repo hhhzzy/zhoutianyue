@@ -37,6 +37,7 @@ export default new Router({
 			{
 				path:'/orderList',
 //				name:'orderList',
+				meta :{mustLogin:true},   //路由元信息，这个页面需要登录的状态量
 				components:{
 					orderHead:allHead,
 					default:orderList
@@ -68,6 +69,7 @@ export default new Router({
 			{
 				path:'/cartList',
 //				name:'cartList',
+				meta :{mustLogin:true},   //路由元信息，这个页面需要登录的状态量
 				components:{
 					cartHead:allHead,
 					default:cartList
@@ -75,6 +77,7 @@ export default new Router({
 			},
 			{
 				path:'/mine',
+				meta :{mustLogin:true},   //路由元信息，这个页面需要登录的状态量
 				components:{
 					cartHead:allHead,
 					default:mine

@@ -59,18 +59,29 @@
 							_this.showSha = true;
 							_this.shaCon = res.data.msg;
 						}else{
+							//登录成功
 							history.setItem("name",res.data.data.name);
 							history.setItem("password",res.data.data.password);
 							history.setItem("logined","true");
 					 		_this.$store.dispatch("logined");//注册成功，发送tooken说明登录了
-					 		_this.$router.replace("/index");//取代当前的路由，使其登录成功的时候不能回退
+					 		_this.$router.replace(_this.$route.query.redirect);//取代当前的路由，使其登录成功的时候不能回退
 						}
 					})
 					.catch(function(err){
 						console.log(err);
 					})
 			},
+			ifLogined(){
+				if(window.localStorage.logined){
+					this.$router.push("/index");
+				}else{
+					return;
+				}
+			}
 		},
+		mounted(){
+			this.ifLogined();
+		}
 	}
 </script>
 
