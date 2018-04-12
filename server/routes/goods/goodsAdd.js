@@ -15,7 +15,7 @@ router.get('/',checkLoging,function(req,res){
 			}
 		})
 	}else{
-		res.render("article/articleAdd.ejs",{"msg":""});
+		res.render("goods/goodsAdd.ejs",{"msg":""});
 	}
 	
 })

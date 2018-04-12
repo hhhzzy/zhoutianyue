@@ -5,21 +5,45 @@
 	<%- include('../components/nav-slider') %>
 	<div class="layui-body">
 		<!-- 内容主体区域 -->
-		<div class="layui-layer-title" style="cursor: move;">添加文章</div>
+		<div class="layui-layer-title" style="cursor: move;">添加商品</div>
 		<form method="post" class="layui-form layui-row layui-col-space10">
 			<div class="layui-col-md9 layui-col-xs12">
 				<div class="layui-row layui-col-space10">
 					<div class="layui-col-md9 layui-col-xs7">
 						<div class="layui-form-item magt3">
-							<label class="layui-form-label">文章标题</label>
+							<label class="layui-form-label"><span class="layui-badge-dot"></span>商品名称</label>
 							<div class="layui-input-block">
-								<input type="text" value="<%= msg.articleName %>" name="articleName" class="layui-input articleName" lay-verify="articleName" placeholder="请输入文章标题">
+								<input type="text" value="<%= msg.goodsName %>" name="goodsName" class="layui-input goodsName" lay-verify="goodsName" placeholder="请输入商品名称">
 							</div>
 						</div>
 						<div class="layui-form-item">
-							<label class="layui-form-label">内容摘要</label>
+							<label class="layui-form-label">一级标题</label>
 							<div class="layui-input-block">
-								<textarea name="abstract" placeholder="请输入内容摘要" class="layui-textarea abstract"><%= msg.abstract %></textarea>
+								<input type="text" value="<%= msg.oneTitle %>" name="oneTitle" class="layui-input oneTitle" lay-verify="oneTitle" placeholder="请输入一级标题">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">二级标题</label>
+							<div class="layui-input-block">
+								<input type="text" value="<%= msg.twoTitle %>" name="twoTitle" class="layui-input twoTitle" lay-verify="twoTitle" placeholder="请输入二级标题">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span class="layui-badge-dot"></span>售卖价</label>
+							<div class="layui-input-block">
+								<input type="text" value="<%= msg.salePrice %>" name="salePrice" class="layui-input salePrice" lay-verify="salePrice" placeholder="请输入售卖价">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span class="layui-badge-dot"></span>虚拟价格</label>
+							<div class="layui-input-block">
+								<input type="text" value="<%= msg.price %>" name="price" class="layui-input price" lay-verify="price" placeholder="请输入虚拟价格">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">库存</label>
+							<div class="layui-input-block">
+								<input type="text" value="<%= msg.num %>" name="num" class="layui-input num" lay-verify="num" placeholder="请输入库存">
 							</div>
 						</div>
 					</div>
@@ -30,7 +54,13 @@
 					</div>
 				</div>
 				<div class="layui-form-item magb0">
-					<label class="layui-form-label">文章内容</label>
+					<div class="layui-form-item">
+						<label class="layui-form-label">商品简介</label>
+						<div class="layui-input-block">
+							<textarea name="abstract" placeholder="请输入商品简介" class="layui-textarea abstract"><%= msg.abstract %></textarea>
+						</div>
+					</div>
+					<label class="layui-form-label">商品详情</label>
 					<div class="layui-input-block">
 						<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"><%= msg.content %></textarea>
 						<div class="layui-layedit">
@@ -41,22 +71,8 @@
 				</div>
 			</div>
 			<div class="layui-col-md3 layui-col-xs12">
-				<blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 分类目录</blockquote>
-				<div class="border category">
-					<div class="">
-						<p>
-							<input type="checkbox" name="news" title="新闻" lay-skin="primary" />
-						</p>
-						<p>
-							<input type="checkbox" name="goods" title="商品" lay-skin="primary" />
-						</p>
-						<p>
-							<input type="checkbox" name="notice" title="公告" lay-skin="primary" />
-						</p>
-						<p>
-							<input type="checkbox" name="images" title="图片" lay-skin="primary" />
-						</p>
-					</div>
+				<blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 商品类别</blockquote>
+				<div class="border category goodsType">
 				</div>
 				<blockquote class="layui-elem-quote title magt10"><i class="layui-icon">&#xe609;</i> 发布</blockquote>
 				<div class="border">
@@ -132,6 +148,6 @@
 		<p><span>copyright @2018 黄照阳</span>　</p>
 	</div>
 </div>
-<script src="js/article/articleAdd.js"></script>
+<script src="js/article/goodsAdd.js"></script>
 <%- include('../footer') %>
 <%- include('../components/errNotice') %>

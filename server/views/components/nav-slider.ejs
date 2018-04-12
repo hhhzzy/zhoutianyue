@@ -22,17 +22,20 @@
 					<cite>后台首页</cite>
 				</a>
 			</li>
-			<li class="layui-nav-item <%= navItemed("/article") %>">
+			<li class="layui-nav-item <%= navItemed("/goods") %>">
 				<a href="javascript:;">
 					<i class="layui-icon" data-icon="&#xe60a;">&#xe60a;</i>
-					<cite>文章管理</cite>
+					<cite>商品管理</cite>
 				</a>
 				<dl class="layui-nav-child">
 					<dd>
-						<a class="<%= activeNav("/articleList") %>" href="/articleList">文章列表</a>
+						<a class="<%= activeNav("/goodsList") %>" href="/goodsList">商品列表</a>
 					</dd>
 					<dd>
-						<a class="<%= activeNav("/articleAdd") %>" href="/articleAdd">文章新增</a>
+						<a class="<%= activeNav("/goodsAdd") %>" href="/goodsAdd">商品新增</a>
+					</dd>
+					<dd>
+						<a class="<%= activeNav("/goodsType") %>" href="/goodsType">商品分类</a>
 					</dd>
 				</dl>
 			</li>

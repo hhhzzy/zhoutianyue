@@ -23,6 +23,15 @@
 			            return val;
 			        }
 			    }
+			    //读取商品类别
+			    $.post("goodsType",{"page":"1","limit":"30","do":"find"},function(data){
+			    	console.log(data.data)
+			    	for(var i = 0; i < data.data.length;i ++){
+			    		var a = $("<p><input type='radio' name='goodsType' value='"+data.data[i].type+"' title='"+data.data[i].type+"'></p>")
+			    		$(".goodsType").append(a)
+			    	}
+			    	form.render();
+			    },"json")
 			    //定时发布
 			    var time = new Date();
 			    var submitTime = time.getFullYear()+'-'+filterTime(time.getMonth()+1)+'-'+filterTime(time.getDate())+' '+filterTime(time.getHours())+':'+filterTime(time.getMinutes())+':'+filterTime(time.getSeconds());
@@ -45,9 +54,19 @@
 			        }
 			    });
 			    form.verify({
-			        articleName : function(val){
+			        goodsName : function(val){
 			            if(val == ''){
-			                return "文章标题不能为空";
+			                return "商品名称不能为空";
+			            }
+			        },
+			        salePrice : function(val){
+			            if(val == ''){
+			                return "商品名称不能为空";
+			            }
+			        },
+			        price : function(val){
+			            if(val == ''){
+			                return "商品名称不能为空";
 			            }
 			        },
 			        content : function(val){

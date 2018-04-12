@@ -7,10 +7,10 @@ layui.use(['form','layer','laydate','table','laytpl','laypage'],function(){
         laypage = layui.laypage,
         table = layui.table;
 
-    //新闻列表
+    //商品列表
     var tableIns = table.render({
         elem: '#articleList',
-        url : '/articleList',
+        url : '/goodsList',
         cellMinWidth : 95,
         method:'post',
         page : true,

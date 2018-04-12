@@ -1,0 +1,111 @@
+<%- include('../header') %>
+<div class="layui-layout layui-layout-admin">
+	<%- include('../components/all-header') %>
+	<!-- 左侧导航 -->
+	<%- include('../components/nav-slider') %>
+	<div class="layui-body">
+		<!-- 内容主体区域 -->
+		<!-- 搜索部分 -->
+		<form class="layui-form">
+			<blockquote class="layui-elem-quote quoteBox">
+				<div class="layui-inline">
+					<a class="layui-btn layui-btn-normal addNews_btn" href="/articleAdd">添加商品</a>
+				</div>
+				<div class="layui-inline">
+					<a class="layui-btn layui-btn-warm addGoodsType_btn" href="javascript:;">添加商品分类</a>
+				</div>
+				<div class="layui-inline">
+					<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+				</div>
+			</blockquote>
+		</form>
+		<!-- 表格展示部分 -->
+		<div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-1">
+			<div class="layui-table-box">
+				<div class="layui-table-header">
+					<table cellspacing="0" cellpadding="0" border="0" id="articleList" lay-filter="articleList" class="layui-hide"></table>
+					<div id="laypage"></div>
+					<script type="text/html" id="barDemo">
+					    <!--<a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="detail">查看</a>-->
+					    <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+					    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+					</script>
+				</div>
+			</div>
+			<style>
+				.laytable-cell-1-0 {
+					width: 50px;
+				}
+				
+				.laytable-cell-1-newsId {
+					width: 60px;
+				}
+				
+				.laytable-cell-1-newsName {
+					width: 350px;
+				}
+				
+				.laytable-cell-1-newsAuthor {
+					width: 211px;
+				}
+				
+				.laytable-cell-1-newsStatus {
+					width: 211px;
+				}
+				
+				.laytable-cell-1-newsLook {
+					width: 211px;
+				}
+				
+				.laytable-cell-1-newsTop {
+					width: 211px;
+				}
+				
+				.laytable-cell-1-newsTime {
+					width: 211px;
+				}
+				
+				.laytable-cell-1-8 {
+					width: 170px;
+				}
+			</style>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div class="layui-footer footer">
+		<p><span>copyright @2018 黄照阳</span>　</p>
+	</div>
+</div>
+<div id="add-goodsType">
+	<form class="layui-form" method="post"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+		<div class="layui-form-item">
+		    <label class="layui-form-label">商品分类名称</label>
+		    <div class="layui-input-block">
+		      <input type="text"  name="goodsType" placeholder="请输入商品分类名称" autocomplete="off" class="layui-input goodsType">
+		    </div>
+		</div>
+		<div class="layui-form-item">
+		    <div class="layui-input-block">
+			    <button id="addType" lay-submit class="layui-btn"  lay-filter="addType">立即提交</button>
+			    <button type="reset" class="layui-btn layui-btn-danger">重置</button>
+		    </div>
+		</div>
+  	</form>
+</div>
+<style>
+	#add-goodsType .layui-form-item{
+		padding: 5px 15px;
+	}
+	#add-goodsType .layui-input{
+		width: 95%;
+	}
+	#add-goodsType .layui-form-label{
+		width: 95px;
+	}
+	.layui-layer-content{
+		margin-top: 15px;
+	}
+</style>
+<script src="js/article/goodsType.js"></script>
+<%- include('../footer') %>
+<%- include('../components/errNotice') %>

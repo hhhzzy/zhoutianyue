@@ -13,7 +13,7 @@ router.get('/',checkLoging,function(req,res){
 			}
 		})
 	}else{
-		res.render("article/articleList.ejs")
+		res.render("goods/goodsList.ejs")
 	}
 	
 })
