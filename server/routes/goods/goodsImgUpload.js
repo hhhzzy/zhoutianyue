@@ -1,6 +1,6 @@
 const express =  require('express');
 const router = express.Router();
-const articleModel = require("../../models/article.js");
+const goodsModel = require("../../models/goods.js");
 const checkLoging = require('../../check/checkLogin.js').checkLoging;//是否登录
 const multer = require("../../common/multer.js");
 //这里的file必须是和前台的input的name值一样才能行
@@ -23,14 +23,14 @@ router.post('/',checkLoging,upload,function(req,res){
 	if(!id){
 		return res.send({
 			"err":1,
-			"msg":"请选择文章！"
+			"msg":"请选择商品！"
 		})
 	}else{
-		articleModel.findByIdAndUpdate(id,whereStr,function(err,doc){
+		goodsModel.findByIdAndUpdate(id,whereStr,function(err,doc){
 			if(err){
 				return res.send({
 					"err":1,
-					"msg":"没有找到该文章"
+					"msg":"没有找到该商品"
 				})
 			}else{
 				return res.send({

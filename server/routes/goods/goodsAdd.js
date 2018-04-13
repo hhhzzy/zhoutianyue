@@ -1,22 +1,31 @@
 const express =  require('express');
 const router = express.Router();
-const articleModel = require("../../models/article.js");
+const goodsModel = require("../../models/goods.js");
+const goodsTypeModel = require("../../models/goodsType.js");
 const checkLoging = require('../../check/checkLogin.js').checkLoging;//是否登录
 router.get('/',checkLoging,function(req,res){
 	//初始化加载数据
-	if(req.query.id){
-		articleModel.find({"_id":req.query.id},function(err,doc){
-			if(err){
-				console.log(err);
-			}else{
-				res.render("article/articleAdd.ejs",{
-					"msg":doc[0]
-				});
-			}
-		})
-	}else{
-		res.render("goods/goodsAdd.ejs",{"msg":""});
-	}
+	goodsTypeModel.find({})
+				  .then(function(data){
+					  	if(req.query.id){
+							goodsModel.find({"_id":req.query.id},function(err,doc){
+								if(err){
+									console.log(err);
+								}else{
+									res.render("goods/goodsAdd.ejs",{
+										"msg":doc[0],
+										"goodsType":data
+									});
+								}
+							})
+						}else{
+							res.render("goods/goodsAdd.ejs",{"msg":"","goodsType":data});
+						}
+				  })
+				  .catch(function(err){
+				  	if(err) throw err;
+				  })
+	
 	
 })
 router.post('/',checkLoging,function(req,res){
@@ -25,26 +34,40 @@ router.post('/',checkLoging,function(req,res){
 	 *   
 	 * */
 	var id = req.body.id;
-	var articleName = req.body.articleName;//文章标题
-	var abstract = req.body.abstract;//文章摘要
-	var content = req.body.content;//文章内容
+	var goodsName = req.body.goodsName;//商品名称
+	var oneTitle = req.body.oneTitle;//一级标题
+	var twoTitle = req.body.twoTitle;//二级标题
+	var salePrice = req.body.salePrice;//售卖价格
+	var price = req.body.price;//真实价格
+	var num = req.body.num;//库存
+	var info = req.body.info;//商品简介
+	var detail = req.body.detail;//商品详情
+	var goodsType = req.body.goodsType;//自制食品
 	var openness = req.body.openness;//浏览权限
 	var newsTop = req.body.newsTop;//是否置顶
 	var realName = req.session.admin[0].realName;
 	var whereStr = {
-			articleName:articleName,
-			abstract:abstract,
-			content:content,
+			goodsName:goodsName,
+			oneTitle:oneTitle,
+			twoTitle:twoTitle,
+			salePrice:salePrice,
+			price:price,
+			num:num,
+			info:info,
+			detail:detail,
+			goodsType:goodsType,
 			openness:openness,
-			newsTop:newsTop,
-			author:realName
+			newsTop:newsTop
 	}
 	try{
-		if(articleName == ""){
-			throw new Error("请输入文章标题");
+		if(goodsName == ""){
+			throw new Error("请输入商品名称");
 		}
-		if(openness == ""){
-			throw new Error("请选择浏览权限");
+		if(salePrice == ""){
+			throw new Error("请输入售卖价格");
+		}
+		if(salePrice == ""){
+			throw new Error("请输入虚拟价格");
 		}
 	}catch(err){
 		//返回结果
@@ -54,7 +77,7 @@ router.post('/',checkLoging,function(req,res){
 		});
 	}
 	if(id != ""){//修改信息
-		articleModel.findByIdAndUpdate(id,{$set:whereStr},function(err,doc){
+		goodsModel.findByIdAndUpdate(id,{$set:whereStr},function(err,doc){
 			if(err){
 				return res.send({
 					"code":0,
@@ -65,12 +88,12 @@ router.post('/',checkLoging,function(req,res){
 				return res.send({
 					"code":1,
 					"msg":"添加成功",
-					"url":"/articleList"
+					"url":"/goodsList"
 				});
 			}
 		})
 	}else{//新增信息
-		articleModel.create(whereStr,function(err,doc){
+		goodsModel.create(whereStr,function(err,doc){
 			if(err){
 				return res.send({
 					"code":0,
@@ -81,7 +104,7 @@ router.post('/',checkLoging,function(req,res){
 				return res.send({
 					"code":1,
 					"msg":"添加成功",
-					"url":"/articleList"
+					"url":"/goodsList"
 				});
 			}
 		})

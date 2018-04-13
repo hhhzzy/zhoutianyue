@@ -1,10 +1,9 @@
 const express =  require('express');
 const router = express.Router();
-const articleModel = require("../../models/article.js");
+const goodsModel = require("../../models/goods.js");
 const checkLoging = require('../../check/checkLogin.js').checkLoging;//是否登录
 router.get('/',checkLoging,function(req,res){
 	//是否置顶修改
-	console.log(req.query.id);
 	const id = req.query.id;//id
 	const val = req.query.val == "true"?"checked":"unchecked";//值
 	if(id){
@@ -13,7 +12,7 @@ router.get('/',checkLoging,function(req,res){
 				newsTop:val
 			}
 		}
-		articleModel.findByIdAndUpdate(id,whereStr,function(err,doc){
+		goodsModel.findByIdAndUpdate(id,whereStr,function(err,doc){
 			if(err){
 				return res.send({
 					"err":1,

@@ -9,7 +9,7 @@
 			
 			  
 				//创建一个编辑器
-			    var editIndex = layedit.build('news_content',{
+			    var editIndex = layedit.build('goods_detail',{
 			        height : 535,
 			        uploadImage : {
 			            url : "../../json/newsImg.json"
@@ -23,36 +23,6 @@
 			            return val;
 			        }
 			    }
-			    //读取商品类别
-			    $.post("goodsType",{"page":"1","limit":"30","do":"find"},function(data){
-			    	console.log(data.data)
-			    	for(var i = 0; i < data.data.length;i ++){
-			    		var a = $("<p><input type='radio' name='goodsType' value='"+data.data[i].type+"' title='"+data.data[i].type+"'></p>")
-			    		$(".goodsType").append(a)
-			    	}
-			    	form.render();
-			    },"json")
-			    //定时发布
-			    var time = new Date();
-			    var submitTime = time.getFullYear()+'-'+filterTime(time.getMonth()+1)+'-'+filterTime(time.getDate())+' '+filterTime(time.getHours())+':'+filterTime(time.getMinutes())+':'+filterTime(time.getSeconds());
-			    laydate.render({
-			        elem: '#release',
-			        type: 'datetime',
-			        trigger : "click",
-			        done : function(value, date, endDate){
-			            submitTime = value;
-			        }
-			    });
-			    form.on("radio(release)",function(data){
-			        if(data.elem.title == "定时发布"){
-			            $(".releaseDate").removeClass("layui-hide");
-			            $(".releaseDate #release").attr("lay-verify","required");
-			        }else{
-			            $(".releaseDate").addClass("layui-hide");
-			            $(".releaseDate #release").removeAttr("lay-verify");
-			            submitTime = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate()+' '+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
-			        }
-			    });
 			    form.verify({
 			        goodsName : function(val){
 			            if(val == ''){
@@ -69,7 +39,7 @@
 			                return "商品名称不能为空";
 			            }
 			        },
-			        content : function(val){
+			        detail : function(val){
 			        	//把富文本编辑器的内容赋值到textarea中
 			   			return layedit.sync(editIndex);
 			        }
@@ -77,22 +47,22 @@
 
 			    form.on("submit(addArticle)",function(data){
 			    	//判断类型，是新增，还是修改
-			        //截取文章内容中的一部分文字放入文章摘要
-			        var abstract = layedit.getText(editIndex).substring(0,50);
-			        //摘要，如果自己输入就用自己输入的摘要，如果没有输入就截取文章的前面50个字符
-			        abstract = $(".abstract").val() ? $(".abstract").val() : abstract;
 			        //弹出loading
 			        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+			        console.log(data.field.newsTop)
 			        // 实际使用时的提交信息
-			        $.post("/articleAdd",{
+			        $.post("/goodsAdd",{
 			        	 id:GetQueryString("id"),
-			             articleName : $(".articleName").val(),  //文章标题
-			             abstract :abstract,  //文章摘要
-			             content : layedit.getContent(editIndex).split('<audio controls="controls" style="display: none;"></audio>')[0],  //文章内容
-//			             classify : '1',    //文章分类
-//			             newsStatus : $('.newsStatus select').val(),    //发布状态
+			             goodsName : $(".goodsName").val(),  //商品名称
+			             oneTitle : $(".oneTitle").val(),  //一级标题
+			             twoTitle : $(".twoTitle").val(),  //二级标题
+			             salePrice : $(".salePrice").val(),  //售卖价格
+			             price : $(".price").val(),  //虚拟价格
+			             num : $(".num").val(),  //库存
+			             info : $(".info").val(),  //商品简介
+			             detail : layedit.getContent(editIndex).split('<audio controls="controls" style="display: none;"></audio>')[0],  //文章内容
+			             goodsType : $(".goodsType input:checked").val(),
 						 openness : $(".openness input:checked").val(), //浏览权限
-			             newsTime : submitTime,    //发布时间
 			             newsTop : data.field.newsTop == "on" ? "checked" : "unckecked",    //是否置顶
 			        },function(res){
 			        	layer.close(index);//关闭提交数据弹出层
@@ -117,7 +87,7 @@
 				 //上传缩略图
 			    upload.render({
 			        elem: '.thumbBox',
-			        url: '/articleImgUpload',
+			        url: '/goodsImgUpload',
         			method : "post", 
         			data:{
         				id:$(".thumbImg").attr("id")
