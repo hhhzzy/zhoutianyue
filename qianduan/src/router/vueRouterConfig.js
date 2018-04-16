@@ -51,7 +51,6 @@ export default new Router({
 //					default:goodsList
 //				},
 				component:goodsList,
-				redirect:'goodsList/proTwoInfo/家禽',
 				children:[
 					{
 						path:'/goodsList/proTwoInfo/:name',

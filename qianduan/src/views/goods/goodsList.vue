@@ -12,7 +12,7 @@
 	  		</div>
 			<ul class="subMenuList jSubMenuList" >
 				<li v-for=" (item,index) in  proData"  @click="addCurrent(index)" v-bind:class="cur == index ? 'current':false  ">
-					<router-link :to=" '/goodsList/proTwoInfo/' + item ">{{item}}</router-link>
+					<router-link :to=" '/goodsList/proTwoInfo/' + item.type ">{{item.type}}</router-link>
 				</li>
 	      	</ul><!-- subMenuList -->
 	      	<router-view :goodsList="proData[0]"></router-view>
@@ -25,7 +25,7 @@
 	export default{
 		data(){
 			return{
-				proData:['家禽','蔬菜水果','自制食品','五谷杂粮','水果'],
+				proData:[],
 				cur:0,
 				fixed:false
 			}
@@ -36,8 +36,21 @@
 				var _this = this;
 				this.cur = ind;
 			},
-			
+			//获取商品分类
+			fetchGoodsType(){
+				var _this = this;
+				this.$http.post("http://localhost:3002/api/goodsType")
+					      .then(function(res){
+					      		_this.proData = res.data.data;
+					      })
+					      .catch(function(err){
+					      		console.log(err);
+					      })
+			}
 		},
+		mounted(){
+			this.fetchGoodsType();
+		}
 	}
 </script>
 
