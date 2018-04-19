@@ -1,7 +1,7 @@
 <template>
 	<div class="main register-box">
 			<headTwo title="登录"></headTwo>
-			<shalter v-if="showSha" :shaCon="shaCon"></shalter>
+			<shalter v-if="showSha" @showSha="getShowSha"  :shaCon="shaCon"></shalter>
 			<p class="title">
 				欢迎来到秘月购
 			</p>
@@ -77,10 +77,16 @@
 				}else{
 					return;
 				}
+			},
+			getShowSha(data){   //得到从子组件传过来的弹出层的状态
+				this.showSha = data;
 			}
 		},
 		mounted(){
 			this.ifLogined();
+		},
+		watch:{
+
 		}
 	}
 </script>

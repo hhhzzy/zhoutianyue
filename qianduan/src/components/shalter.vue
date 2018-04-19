@@ -10,10 +10,10 @@
       				</span>
       			</p>
       			<p>
-      				<span @click="showSha = false " class="sure-cancel">
+      				<span @click="cancle()" class="sure-cancel">
       					确定
       				</span>
-      				<span @click="showSha = false " class="no-cancel">
+      				<span @click="cancle()" class="no-cancel">
       					取消
       				</span>
       			</p>
@@ -25,10 +25,17 @@
 	export default{
 		data(){
 			return{
-				showSha:true,
+				showSha:true
 			}
 		},
-		props:["shaCon"]
+		props:["shaCon"],
+		methods:{
+			cancle(){
+				this.showSha = false;
+				//通过emit把显示装填showSha传给父组件
+				this.$emit("showSha",this.showSha);
+			}
+		}
 	}
 </script>
 

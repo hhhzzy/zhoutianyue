@@ -9,7 +9,6 @@ router.get('/',function(req,res){
 router.post('/',function(req,res){
 	goodsTypeModel.find()
 				  .then(function(data){
-				  	console.log(data);
 				  		return res.send({
 				  			"err" : 0,
 				  			"msg" : "查询成功",

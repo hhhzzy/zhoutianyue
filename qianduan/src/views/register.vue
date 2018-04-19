@@ -1,7 +1,7 @@
 <template>
 	<div class="main register-box">
 			<headTwo title="注册"></headTwo>
-			<shalter v-if="showSha" :shaCon="shaCon"></shalter>
+			<shalter v-if="showSha" @showSha="getShowSha" :shaCon="shaCon"></shalter>
 			<p class="title">
 				欢迎来到秘月购
 			</p>
@@ -61,7 +61,7 @@
 			}
 		},
 		methods:{
-			registering(){
+			registering(){ //注册
 				const history = window.localStorage;
 				if(this.canReg){
 					var _this = this;//重置this的指向
@@ -71,7 +71,6 @@
 						 	password:this.pwd.val
 						 })
 						 .then(function(res){
-						 	console.log(res)
 						 	if(res.data.err){
 						 		_this.showTips = true;
 						 		_this.tipsCon = res.data.msg;
@@ -91,6 +90,9 @@
 			},
 			fetchData(){
 				console.log(this.$router);
+			},
+			getShowSha(data){   //得到从子组件传过来的弹出层的状态
+				this.showSha = data;
 			}
 		},
 		watch:{

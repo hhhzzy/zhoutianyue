@@ -63,8 +63,9 @@
 		},
 		mounted(){
 			var _this = this;
-			this.$http.get('/api/goods')
+			this.$http.get('http://localhost:3002/api/goods')
 			.then(function(res){
+				console.log(res)
 				_this.goods = [];
 				for(var i = 0;i < res.data.data.length;i++){
 					for(let ind in res.data.data[i]){
