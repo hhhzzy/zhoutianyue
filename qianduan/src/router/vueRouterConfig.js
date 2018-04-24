@@ -1,20 +1,20 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import indexHead from '@/components/head.vue'
-import allHead from '@/components/headTwo.vue'
-import index from '@/views/index'
-import conIndex from '@/views/con-index'
-import orderList from '@/views/orderList'
-import goodsList from '@/views/goods/goodsList.vue'
-import proTwoInfo from '@/views/goods/pro-two-info.vue'
-import cartList from '@/views/cart/cartList.vue'
-import goodsDetail from '@/views/goods/goodsDetail.vue'
-import login from '@/views/login.vue'
-import mine from '@/views/mine.vue'
-import register from '@/views/register.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import indexHead from '@/components/head.vue';
+import allHead from '@/components/headTwo.vue';
+import index from '@/views/index';
+import conIndex from '@/views/con-index';
+import orderList from '@/views/orderList';
+import goodsList from '@/views/goods/goodsList.vue';
+import proTwoInfo from '@/views/goods/pro-two-info.vue';
+import cartList from '@/views/cart/cartList.vue';
+import goodsDetail from '@/views/goods/goodsDetail.vue';
+import login from '@/views/login.vue';
+import mine from '@/views/mine.vue';
+import register from '@/views/register.vue';
 
 
-Vue.use(Router)
+Vue.use(Router);
 export default new Router({
 		mode:'history',
 		routes:[

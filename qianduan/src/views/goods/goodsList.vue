@@ -17,7 +17,7 @@
 	      	</ul><!-- subMenuList -->
 	      	<ul class="subProList">
 			    <li v-for = " item in goods "> 
-			        <router-link :to=" '/goodsDetail/' ">
+			        <router-link :to=" '/goodsDetail/'+item._id ">
 			        	<span class="uImg left"><img  :src="item.path" alt="" /></span>
 			        </router-link>
 			        <div class="right textBox">
@@ -44,7 +44,9 @@
 				proData:[],
 				cur:0,
 				fixed:false,
-				goods:[]
+				goods:[],
+				limit:6,//每页加载的条数
+				page:1//当前的页码数
 			}
 		},
 		methods:{
@@ -68,13 +70,20 @@
 					      })
 				
 			},
-			//第一次加载右侧商品列表页
+			//加载右侧商品列表页
 			firGoods(firGoodsType){
 				var _this = this;
+				var limit = this.limit;//每页加载的条数
+				var page = this.page;//当前的页码数
+				console.log(limit)
+				console.log(page)
 				this.$http.post("http://localhost:3002/api/goods",{
-								goodsType : firGoodsType
+								goodsType : firGoodsType,
+								limit : limit,
+								page : page
 						  })
 					      .then(function(res){
+					      	console.log(res)
 					      		_this.goods = res.data.data;
 					      })
 					      .catch(function(err){
