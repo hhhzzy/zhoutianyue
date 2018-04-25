@@ -1,7 +1,8 @@
 <template>
 	<div class="pro-two">
 		<headTwo title="商品列表"></headTwo>
-		<div style="position: relative;">
+		<pullToRefresh eleClassName="goods-box"></pullToRefresh>
+		<div class="goods-box" style="position: relative;">
 	  		<div class="classify-search-box">
 	  			<div class="classify-search clear">
 	  				<span class="search-btn">
@@ -38,16 +39,21 @@
 </template>
 
 <script>
+	import pullToRefresh from "../../components/pullToRefresh.vue"
 	export default{
 		data(){
 			return{
 				proData:[],
 				cur:0,
 				fixed:false,
+				ele:null,
 				goods:[],
-				limit:6,//每页加载的条数
+				limit:8,//每页加载的条数
 				page:1//当前的页码数
 			}
+		},
+		components:{
+			"pullToRefresh":pullToRefresh
 		},
 		methods:{
 			//添加current
@@ -75,15 +81,15 @@
 				var _this = this;
 				var limit = this.limit;//每页加载的条数
 				var page = this.page;//当前的页码数
-				console.log(limit)
-				console.log(page)
+//				console.log(limit)
+//				console.log(page)
 				this.$http.post("http://localhost:3002/api/goods",{
 								goodsType : firGoodsType,
 								limit : limit,
 								page : page
 						  })
 					      .then(function(res){
-					      	console.log(res)
+//					      	console.log(res)
 					      		_this.goods = res.data.data;
 					      })
 					      .catch(function(err){
@@ -93,6 +99,11 @@
 			//点击左侧商品类别获取商品
 			fetchGoods:function(goodsType){
 				this.firGoods(goodsType);
+			},
+			//下滑到底部加载更多
+			test(){
+				
+//				this.ele = 
 			}
 		},
 		mounted(){
@@ -104,7 +115,7 @@
 
 <style scoped>
 /****************************  分类页面  *******************************/
-
+.pro-two{position: relative;}
 .subMenuList{height: 100%;position: fixed; left: 0; top: 1.7rem; width: 30%; background: #efefef; overflow: auto;/*margin-top: 1.7rem;*/float: left;}
 .fixed{position: fixed;}
 .subMenuList li a{color: #666;display:block;}
