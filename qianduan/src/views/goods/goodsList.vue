@@ -1,9 +1,9 @@
 <template>
 	<div class="pro-two">
 		<headTwo title="商品列表"></headTwo>
-		<pullToRefresh eleClassName="goods-box"></pullToRefresh>
+		<pullToRefresh @refresh="refresh"></pullToRefresh>
 		<div class="goods-box" style="position: relative;">
-	  		<div class="classify-search-box">
+	  		<div class="classify-search-box fixed-box">
 	  			<div class="classify-search clear">
 	  				<span class="search-btn">
 	  					<img src="../../assets/images/search.png" alt="">
@@ -11,7 +11,7 @@
 	  				<input type="text" placeholder="输入关键词搜索">
 	  			</div>
 	  		</div>
-			<ul class="subMenuList jSubMenuList" >
+			<ul class="subMenuList jSubMenuList fixed-box" >
 				<li v-for=" (item,index) in  proData"  @click="addCurrent(index)" v-bind:class="cur == index ? 'current':false  ">
 					<p v-on:click="fetchGoods(item.type)">{{item.type}}</p>
 				</li>
@@ -81,8 +81,6 @@
 				var _this = this;
 				var limit = this.limit;//每页加载的条数
 				var page = this.page;//当前的页码数
-//				console.log(limit)
-//				console.log(page)
 				this.$http.post("http://localhost:3002/api/goods",{
 								goodsType : firGoodsType,
 								limit : limit,
@@ -100,10 +98,8 @@
 			fetchGoods:function(goodsType){
 				this.firGoods(goodsType);
 			},
-			//下滑到底部加载更多
-			test(){
-				
-//				this.ele = 
+			refresh(resolve){//子组件传过来的参数（函数），执行成功之后告知子组件我执行完了
+				resolve();
 			}
 		},
 		mounted(){
@@ -114,6 +110,7 @@
 </script>
 
 <style scoped>
+.goods-box{background-color: #fff;}
 /****************************  分类页面  *******************************/
 .pro-two{position: relative;}
 .subMenuList{height: 100%;position: fixed; left: 0; top: 1.7rem; width: 30%; background: #efefef; overflow: auto;/*margin-top: 1.7rem;*/float: left;}
@@ -123,7 +120,7 @@
 .subMenuList .current{background: #fff; border-left: 0.45em solid #ff8a54; text-indent: -0.45em;}
 .search-header{width: 3.6rem;margin: 0.22rem 0 0 1.12rem;}
 .search-header input{display: block;float: left;width: 3rem;height: 100%;background-color: transparent;border: none;padding-left: 0.25rem;color: white;font-size: 0.24rem;border-right: 1px solid #91a066;height: 0.4rem;margin-top: 0.05rem;}
-.subProList {width: 100%;padding-left: 32%;margin-top: 1.75rem;margin-bottom: 0.9rem;}
+.subProList {width: 100%;padding-left: 32%;margin-bottom: 0.9rem;position: relative;top: 1rem;}
 .search-header input::-webkit-input-placeholder{color: white;}
 .search-header span{width: 0.3rem;height: 0.4rem;margin-left: 0.1rem;margin-top: 0.06rem;}
 .search-header img{display: block;vertical-align: middle;}
@@ -140,7 +137,7 @@
 .classify-search input::-webkit-input-placeholder{color: #b5b5b5;}
 /*.subMenuList{position: fixed;}*/
 .fixed{position: fixed;}
-.subProList {width: 100%;padding-left: 32%;margin-bottom: 0.9rem;margin-top: 55px;}
+.subProList {width: 100%;padding-left: 32%;margin-bottom: 0.9rem;}
 .classify-list{overflow: hidden;}
 .classify-list dt{font-size: 0.26rem;color: #999;margin: 0.3rem 0;float: left;width: 100%;margin-left: 0.34rem;}
 .classify-list dd{width: 33%;float: left;text-align: center;margin-bottom: 0.35rem;}
