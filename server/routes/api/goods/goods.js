@@ -6,15 +6,14 @@ router.get("/",function(req,res) {
 });
 router.post("/",function(req,res){
 	var goodsType = req.body.goodsType;//商品类别
-	var limit = req.body.limit;//每次查询的数量
-	var page = req.body.page;//当前的页码数
+	var limit = parseInt(req.body.limit);//每次查询的数量
+	var page = parseInt(req.body.page);//当前的页码数
 	//分页查询
 	goods.find({"goodsType" : goodsType})
-		 .skip(page.limit)   //跳过多少条
+		 .skip((page  - 1) * limit)   //跳过多少条
 		 .limit(limit) //每一次查询的条数
 		 .then(function(data){
 		 	var host = req.headers.host;
-		 	console.log(req.headers.host);
 		 	for(var i = 0; i < data.length; i ++){
 		 		data[i].path ="http://" + host + "/" + data[i].path;
 		 	}

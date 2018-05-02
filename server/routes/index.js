@@ -39,6 +39,7 @@ module.exports = function(app){
 	 * */
 	app.use('/api/goodsType',require("./api/goods/goodsType.js"));  //商品类别
 	app.use('/api/goods',require("./api/goods/goods.js"));  //商品信息
+	app.use('/api/goodsDetail',require("./api/goods/goodsDetail.js"));  //商品详细信息
 	app.use('/api/blog',require("./api/blog/blog.js"));  //关于我们
 //	app.use('/api/articleDetail',require("./api/article/articleDetail.js"));  //文章详细页查询
 	app.use('/api/register',require("./api/register.js"))//用户注册

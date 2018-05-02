@@ -4,7 +4,7 @@ export default{
 	[types.ADD_CART](state,obj){   //增加商品到购物车
 		var list = state.cartList;
 		var bool = list.find((item) => { //es6的find(() => {})写法，如果找到了该商品就返回该商品，没找到就返回underfind
-			return item.id == obj.id;
+			return item.id == obj._id;
 		})
 		if(!bool){
 			obj.boolSel = true;  //第一次增加的时候，商品是选中状态

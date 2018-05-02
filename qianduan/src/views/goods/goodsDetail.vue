@@ -5,7 +5,7 @@
 			<swiper  :options="swiperOption" ref="mySwiper">
 			        <swiper-slide>
 			        	<a href="javascript:;">
-			        		<img src="../../assets/images/pro-img.jpg" alt="">
+			        		<img src="http://localhost:3002/upload/file-1524637989693.jpg" alt="">
 			        	</a>
 			        </swiper-slide>
 			        <swiper-slide>
@@ -24,30 +24,30 @@
 		</div>
 		<div class="pro-info">
 			<p class="pro-name">
-				苏北散养老母鸡950g/只
+				{{goodsData.goodsName}}
 			</p>
 			<p class="pro-describe">
-				农场直供冷冻禽肉
+				{{goodsData.oneTitle}}
 			</p>
 			<div class="pro-price clear">
 				<span class="pro-realPrice">
-					<i>￥</i>43.50
+					<i>￥</i>{{goodsData.salePrice}}
 				</span>
 				<span class="pro-beforePrice">
-					￥50.00
+					￥{{goodsData.price}}
 				</span>
 				<span class="pro-saleNum">
-					已售12
+					已售{{goodsData.num}}
 				</span>
 				<span class="changeNum">
 					<a href="javascript:;" class="cut-num">-</a>
-					<input  class="num" type="text" placeholder="3">
+					<input  class="num" type="text" placeholder="1">
 					<a href="javascript:;" class="add-num">+</a>
 				</span> 
 			</div>
 		</div>
-		<div class="bg-box"></div>
-		<div class="promise clear">
+		<!--<div class="bg-box"></div>-->
+		<!--<div class="promise clear">
 			<p class="promise-title">
 				<span>MY秘月购</span>
 				优质臻选，好货低价
@@ -64,7 +64,7 @@
 			<p class="promise-advisory">
 				咨询
 			</p>
-		</div>
+		</div>-->
 		<div class="bg-box"></div>
 		<div class="goods-pj clear">
 			<span>
@@ -94,7 +94,7 @@
 				<img src="../../assets/images/goods-info.jpg" alt="">
 			</p>
 			<p class="goods-word">
-				这是一个真实的鸡
+				{{goodsData.detail}}
 			</p>
 	    </div>
 	    
@@ -113,8 +113,33 @@
 		           	autoplay: true,//可选选项，自动滑动
 					paginationClickable :true,//点击小图标会动
 		        },
+		        goodsData:[]
 		    }
+		},
+		methods:{
+			//加载数据
+			fetchData(){
+				//获取路由后面的参数
+				var id = this.$route.params.id;
+				var _this = this;
+				//加载数据
+				this.$http.post('http://localhost:3002/api/goodsDetail',{
+								id:id
+						  })
+						  .then(function(data){
+						  		console.log(data);
+						  		_this.goodsData = data.data.data;
+						  })
+						  .catch(function(err){
+						  		console.log(err);
+						  })
+				console.log(id)
+			}
+		},
+		mounted(){
+			this.fetchData();
 		}
+		
 	}
 </script>
 <style scoped>

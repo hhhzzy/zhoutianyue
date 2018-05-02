@@ -45,6 +45,8 @@ router.post('/',checkLoging,function(req,res){
 	var goodsType = req.body.goodsType;//自制食品
 	var openness = req.body.openness;//浏览权限
 	var newsTop = req.body.newsTop;//是否置顶
+	var boolSel = true;//刚开始的时候是默认选中的
+	var sellCount = 1;//商品进入购物车所显示的数量
 	var realName = req.session.admin[0].realName;
 	var whereStr = {
 			goodsName:goodsName,
@@ -57,7 +59,9 @@ router.post('/',checkLoging,function(req,res){
 			detail:detail,
 			goodsType:goodsType,
 			openness:openness,
-			newsTop:newsTop
+			newsTop:newsTop,
+			boolSel : boolSel,
+			sellCount : sellCount
 	}
 	try{
 		if(goodsName == ""){

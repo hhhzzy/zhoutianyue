@@ -6,7 +6,6 @@ import index from '@/views/index';
 import conIndex from '@/views/con-index';
 import orderList from '@/views/orderList';
 import goodsList from '@/views/goods/goodsList.vue';
-import proTwoInfo from '@/views/goods/pro-two-info.vue';
 import cartList from '@/views/cart/cartList.vue';
 import goodsDetail from '@/views/goods/goodsDetail.vue';
 import login from '@/views/login.vue';
@@ -51,15 +50,6 @@ export default new Router({
 //					default:goodsList
 //				},
 				component:goodsList,
-				children:[
-					{
-						path:'/goodsList/proTwoInfo/:name',
-//						name:'proTwoInfo',
-						components:{
-							default:proTwoInfo,
-						},
-					},
-				]
 			},
 			{
 				path:'/goodsDetail/:id',

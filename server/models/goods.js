@@ -12,6 +12,8 @@ var goodsSchema = new Schema({
 	goodsType:"String", //商品类别
 	openness:"String", //浏览权限
 	newsTop:"String", //是否置顶
-	path : "String"//商品图片
+	path : "String",//商品图片
+	boolSel : "Boolean",//商品默认选中
+	sellCount : "Number",//商品进入购物车所显示的数量
 },{timestamps: {createdAt: 'created', updatedAt: 'updated'}});
 module.exports = mongoose.model('goods',goodsSchema);

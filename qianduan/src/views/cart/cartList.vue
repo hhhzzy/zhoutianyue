@@ -25,12 +25,12 @@
 			                    </div>
 			                    <div class="right picText">
 			                        <a href="">
-			                            <span class="uImg left"><img v-bind:src="val.imgUrl"alt="" /></span>
+			                            <span class="uImg left"><img v-bind:src="val.path"alt="" /></span>
 			                        </a>
 			                            <div class="text right pro-info">
-			                                <p class="p1">{{val.name}}</p>
+			                                <p class="p1">{{val.goodsName}}</p>
 			                                <div class="num jNum">
-			                                	<i>￥<em>{{val.pics}}</em></i>
+			                                	<i>￥<em>{{val.price}}</em></i>
 			                                    <span class="changeNum">
 													<a href="javascript:;" class="cut-num" @click="decreaseNum(val)">-</a>
 													<input class="num" type="text" v-bind:value='val.sellCount'>
