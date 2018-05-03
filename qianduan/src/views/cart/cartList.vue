@@ -18,6 +18,7 @@
 				<div class="pageboder">
 			        <div id="content" data-role="content">
 			            <ul class="carProList jCarProList">
+			            	 	{{ cartList }}
 			            	 <li v-for=" val in cartList ">
 			                    <div class="left inputBox">
 			                        <input type="checkbox" v-bind:checked=" val.boolSel " name="checkbox-1-set" class="regular-checkbox list-checkbox" />
@@ -28,7 +29,7 @@
 			                            <span class="uImg left"><img v-bind:src="val.path"alt="" /></span>
 			                        </a>
 			                            <div class="text right pro-info">
-			                                <p class="p1">{{val.goodsName}}</p>
+			                                <p class="p1">{{val.goods.goodsName}}</p>
 			                                <div class="num jNum">
 			                                	<i>￥<em>{{val.price}}</em></i>
 			                                    <span class="changeNum">
@@ -69,7 +70,18 @@
 		},
 		computed:{
 			cartList(){  //进来时候渲染数据
-				return this.$store.state.cart.cartList;
+				var cartList = "";
+				this.$http.post("http://localhost:3002/api/cart")
+						  .then(function(data){
+						  		if(data.data.data){
+						  			cartList = data.data.data;
+									return cartList;
+						  		}
+						  })
+						  .catch(function(err){
+						  		console.log(err);
+						  })
+//				return this.$store.state.cart.cartList;
 			},
 			calculate(){  //计算总价和总数
 				return this.$store.getters.calculate;
@@ -87,7 +99,7 @@
 			},
 			allChk(bool){  //全选
 				this.$store.dispatch('all_chk',bool);
-			}
+			},
 		}
 	}
 </script>

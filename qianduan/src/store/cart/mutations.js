@@ -2,6 +2,7 @@ import * as types from "./mutations_types.js"
 
 export default{
 	[types.ADD_CART](state,obj){   //增加商品到购物车
+		//获取cart表里面的数据
 		var list = state.cartList;
 		var bool = list.find((item) => { //es6的find(() => {})写法，如果找到了该商品就返回该商品，没找到就返回underfind
 			return item.id == obj._id;
@@ -22,6 +23,7 @@ export default{
 				}
 			}
 		}
+		console.log(state.cartList)
 	},
 	[types.ADD_NUM](state,obj){   //增加数量
 		for(var i = 0; i < state.cartList.length; i ++){

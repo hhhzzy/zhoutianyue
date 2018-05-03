@@ -129,7 +129,17 @@
 			//加入购物车
 			addCart(good){
 				var obj = good;
-				this.$store.dispatch("add_cart",{obj});
+				var _this = this;
+				//把数据存入cart表	
+				this.$http.post("http://localhost:3002/api/addCart",{
+								goodsId : obj._id
+						  })
+						  .then(function(data){
+						  		_this.$store.dispatch("add_cart",{obj});
+						  })
+						  .catch(function(err){
+						  		if(err) throw err;
+						  })
 			}
 		},
 		mounted(){
