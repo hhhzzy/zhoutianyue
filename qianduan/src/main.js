@@ -69,8 +69,7 @@ router.beforeEach(function (to, from, next) {    //to.path:即将进入的路由
 	 * 判断，如果需要登录的话，就跳转到登录页面，并且记录下要回到的路劲，登录成功回到原页面
 	 *
 	 */
-	if(to.matched.some(record => record.meta.mustLogin)){
-		
+	if(to.matched.some(record => record.meta.mustLogin)){	
 		if(window.localStorage.logined){
 			next()
 		}else{
@@ -87,20 +86,21 @@ router.beforeEach(function (to, from, next) {    //to.path:即将进入的路由
 //引入axios
 import axios from 'axios'
 //使用get获取本地的数据文件时候，应该把文件放在static文件夹里面，这个文件夹是vue-cli创建时候暴露的文件夹
-Vue.prototype.$http = axios; //把axios放到vuex的原型上面,
 //axios的一些配置，比如发送请求显示loading，请求回来loading消失之类的
 axios.interceptors.request.use(function (config) {  //配置发送请求的信息
 	store.dispatch('showLoading');
-  return config;
+  	return config;
 }, function (error) {
-  return Promise.reject(error);
+  	return Promise.reject(error);
 });
 axios.interceptors.response.use(function (response) { //配置请求回来的信息
 	store.dispatch('hideLoading');
-  return response;
+  	return response;
 }, function (error) {
-  return Promise.reject(error);
+  	return Promise.reject(error);
 });
+Vue.prototype.$http = axios; //把axios放到vuex的原型上面;
+
 //加载自定义组件
 import Loading from "./components/Loading"
 Vue.use(Loading);

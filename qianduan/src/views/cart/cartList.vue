@@ -18,20 +18,19 @@
 				<div class="pageboder">
 			        <div id="content" data-role="content">
 			            <ul class="carProList jCarProList">
-			            	 	{{ cartList }}
 			            	 <li v-for=" val in cartList ">
 			                    <div class="left inputBox">
-			                        <input type="checkbox" v-bind:checked=" val.boolSel " name="checkbox-1-set" class="regular-checkbox list-checkbox" />
-			                        <label class="jCheckbox" v-bind:class=" val.boolSel?'checked':'' " @click="changeChk(val)"></label>
+			                        <input type="checkbox" v-bind:checked=" val.goods.boolSel " name="checkbox-1-set" class="regular-checkbox list-checkbox" />
+			                        <label class="jCheckbox" v-bind:class=" val.goods.boolSel?'checked':'' " @click="changeChk(val)"></label>
 			                    </div>
 			                    <div class="right picText">
 			                        <a href="">
-			                            <span class="uImg left"><img v-bind:src="val.path"alt="" /></span>
+			                            <span class="uImg left"><img v-bind:src="val.goods.path"alt="" /></span>
 			                        </a>
 			                            <div class="text right pro-info">
 			                                <p class="p1">{{val.goods.goodsName}}</p>
 			                                <div class="num jNum">
-			                                	<i>￥<em>{{val.price}}</em></i>
+			                                	<i>￥<em>{{val.goods.salePrice}}</em></i>
 			                                    <span class="changeNum">
 													<a href="javascript:;" class="cut-num" @click="decreaseNum(val)">-</a>
 													<input class="num" type="text" v-bind:value='val.sellCount'>
@@ -65,24 +64,24 @@
 	export default{
 		data(){
 			return{
-				goods:[],	
+				goods:[],
+				cartList:[]
 			}
 		},
 		computed:{
-			cartList(){  //进来时候渲染数据
-				var cartList = "";
-				this.$http.post("http://localhost:3002/api/cart")
-						  .then(function(data){
-						  		if(data.data.data){
-						  			cartList = data.data.data;
-									return cartList;
-						  		}
-						  })
-						  .catch(function(err){
-						  		console.log(err);
-						  })
-//				return this.$store.state.cart.cartList;
-			},
+//			cartList(){  //进来时候渲染数据
+//				this.$http.post("http://localhost:3002/api/cart")
+//						  .then(function(data){
+//						  		if(data.data.data){
+//						  			console.log(data.data.data);
+//									return data.data.data;
+//						  		}
+//						  })
+//						  .catch(function(err){
+//						  		console.log(err);
+//						  })
+////				return this.$store.state.cart.cartList;
+//			},
 			calculate(){  //计算总价和总数
 				return this.$store.getters.calculate;
 			}
@@ -100,6 +99,23 @@
 			allChk(bool){  //全选
 				this.$store.dispatch('all_chk',bool);
 			},
+			getCart(){
+				var _this = this;
+				this.$http.post("http://localhost:3002/api/cart")
+						  .then(function(data){
+						  		if(data.data.data){
+						  			var obj = data.data.data;
+						  			_this.cartList = data.data.data;
+						  			_this.$store.dispatch("set_cartList",obj);
+						  		}
+						  })
+						  .catch(function(err){
+						  		console.log(err);
+						  })
+			}
+		},
+		mounted(){
+			this.getCart();
 		}
 	}
 </script>

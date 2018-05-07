@@ -45,9 +45,10 @@ export default{
 		}
 	},
 	[types.CHANGE_CHK](state,obj){  //改变选中状态
+		console.log(obj)
 		for(var i = 0; i < state.cartList.length; i ++){
 			if(state.cartList[i] == obj){
-				state.cartList[i].boolSel = !state.cartList[i].boolSel;  //改变状态
+				state.cartList[i].goods.boolSel = !state.cartList[i].goods.boolSel;  //改变状态
 				break;
 			}
 		}
@@ -56,12 +57,15 @@ export default{
 		 state.cartInfo.allchk = !bool;
 		 if(state.cartInfo.allchk == true){
 		 	for(var i = 0; i < state.cartList.length; i ++){
-				state.cartList[i].boolSel = true; 
+				state.cartList[i].goods.boolSel = true; 
 			}
 		 }else{
 		 	for(var i = 0; i < state.cartList.length; i ++){
-				state.cartList[i].boolSel = false; 
+				state.cartList[i].goods.boolSel = false; 
 			}
 		 }
+	},
+	[types.SET_CARTLIST](state,obj){
+		state.cartList= obj;
 	}
 }

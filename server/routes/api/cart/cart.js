@@ -14,7 +14,6 @@ router.post("/",function(req,res){
 		 			"msg":"购物车信息",
 		 			"data":data
 		 		})
-
 			 })
 			 .catch(function(err){
 			 		if(err) throw err;

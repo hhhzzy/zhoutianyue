@@ -5,6 +5,7 @@ export default{
 	},
 	add_num:({commit},{obj}) =>{  //增加数量
 		commit(types.ADD_NUM,obj);
+		console.log(obj)
 	},
 	decrease_num:({commit},{obj}) => { //减少数量
 		commit(types.DECREASE_NUM,obj)
@@ -14,5 +15,8 @@ export default{
 	},
 	all_chk:({commit},bool) => {
 		commit(types.ALL_CHK,bool);
+	},
+	set_cartList:({commit},obj) => {
+		commit(types.SET_CARTLIST,obj);
 	}
 }

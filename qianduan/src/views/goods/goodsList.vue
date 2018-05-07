@@ -43,6 +43,7 @@
 <script>
 	import pullToRefresh from "../../components/pullToRefresh.vue" //下拉刷新
 	import scrollToRefresh from "../../components/scrollToRefresh" //滚动到底部自动加载数据
+	import http from "../../api/api.js"
 	export default{
 		data(){
 			return{
@@ -131,15 +132,21 @@
 				var obj = good;
 				var _this = this;
 				//把数据存入cart表	
-				this.$http.post("http://localhost:3002/api/addCart",{
-								goodsId : obj._id
-						  })
-						  .then(function(data){
-						  		_this.$store.dispatch("add_cart",{obj});
-						  })
-						  .catch(function(err){
-						  		if(err) throw err;
-						  })
+//				this.$http.post("http://localhost:3002/api/addCart",{
+//								goodsId : obj._id
+//						  })
+//						  .then(function(data){
+//						  		_this.$store.dispatch("add_cart",{obj});
+//						  })
+//						  .catch(function(err){
+//						  		if(err) throw err;
+//						  })
+				var res = http.post('http://localhost:3002/api/addCart',{
+						goodsId : obj._id
+				  	});
+				console.log(res)
+					
+				
 			}
 		},
 		mounted(){

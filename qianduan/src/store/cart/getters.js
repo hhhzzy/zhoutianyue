@@ -5,15 +5,14 @@ module.exports = {
         state.cartInfo.cartMoney = 0;
         state.cartInfo.cartNum = 0;
         for(var i = 0; i < list.length; i ++){
-        	if(list[i].boolSel){
+        	if(list[i].goods.boolSel){
         		state.cartInfo.cartNum ++;
-        		state.cartInfo.cartMoney += list[i].sellCount * list[i].pics; 
+        		state.cartInfo.cartMoney += list[i].sellCount * list[i].goods.salePrice; 
         	}else{
         		boolChk++;
         	}
         }   
         if(boolChk > 0){  
-        	console.log(boolChk);
     		state.cartInfo.allchk = false;
     		boolChk = 0;
     	}else{
