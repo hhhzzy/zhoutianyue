@@ -1,6 +1,7 @@
 module.exports = {
 	calculate(state){
 		var list = state.cartList;
+		console.log(state)
 		var boolChk = 0;   //判断购物车中是否有未选中的商品
         state.cartInfo.cartMoney = 0;
         state.cartInfo.cartNum = 0;

@@ -18,7 +18,6 @@ router.post("/",function(req,res){
 			  .then(function(data){
 			  		cartModel.find({goodsId:goodsId})
 			  				 .then(function(data){
-			  				 		console.log(data);
 			  				 	if(data == ""){//新增商品
 			  				 		cartModel.create(cartList,function(err,doc){
 			  				 				 	return res.send({
@@ -30,7 +29,7 @@ router.post("/",function(req,res){
 			  				 	}else{//添加数量
 			  				 		var sellCount = data[0].sellCount;
 			  				 		sellCount++;
-			  				 		cartModel.update({_id:data[0]._id},{'$set':{sellCount:sellCount}},function(err,doc){
+			  				 		cartModel.findByIdAndUpdate(data[0]._id,{'$set':{sellCount:sellCount}},{new:true},function(err,doc){
 			  				 				 	return res.send({
 													"err":0,
 													"msg":"增加成功",
@@ -38,7 +37,6 @@ router.post("/",function(req,res){
 												});
 			  				 				})
 			  				 	}
-			  				 	
 			  				 })
 			  				 .catch(function(err){
 							  		if(err) throw err;

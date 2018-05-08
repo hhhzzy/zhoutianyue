@@ -19,7 +19,6 @@ axios.interceptors.response.use(function (response) { //配置请求回来的信
 function checkStatus(response){
 	store.dispatch('hideLoading'); //隐藏loading
 	//如果状态码正常，则可以正常的返回数据
-	console.log(response)
 	if(response && ( response.status === 200 || response.status === 304 || response.status === 400 )){
 		return response;
 	}else{
@@ -45,38 +44,43 @@ function checkCode(res){
 //返回axios
 export default{
 	post(url,data){
-		axios({
-			method:"post",
-			url:url,
-			data:qs.stringify(data),//序列化数据
-			timeout:1000,//请求超时，
-			headers: {  //请求头
-		        'X-Requested-With': 'XMLHttpRequest',
-		        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-		   },
-		})
-		.then(function(response){
-			return Promise.resolve(checkStatus(response)); //返回正常，调用状态码检查
-		})
-		.catch(function(err){
-			return Promise.reject(checkCode(err));
-		})
+		return new Promise(function(resolve,reject){
+			axios({
+				method:"post",
+				url:url,
+				data:qs.stringify(data),//序列化数据
+				timeout:10000,//请求超时，
+				headers: {  //请求头
+			        'X-Requested-With': 'XMLHttpRequest',
+			        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+			   },
+			})
+			.then(function(response){
+				resolve(checkStatus(response)); //返回正常，调用状态码检查
+			})
+			.catch(function(err){
+				reject(checkCode(err));
+			})
+		}) 
 	},
 	get(url,data){
-		axios({
-			method:"get",
-			url:url,
-			params:qs.stringify(data),//序列化数据
-			timeout:1000,//请求超时，
-			headers: {  //请求头
-		        'X-Requested-With': 'XMLHttpRequest'
-		   },
+		return new Promise(function(resolve,reject){
+			axios({
+				method:"get",
+				url:url,
+				params:qs.stringify(data),//序列化数据
+				timeout:10000,//请求超时，
+				headers: {  //请求头
+			        'X-Requested-With': 'XMLHttpRequest'
+			   },
+			})
+			.then(function(response){
+				resolve(checkStatus(response)); //返回正常，调用状态码检查
+			})
+			.catch(function(err){
+				reject(checkCode(err));
+			})
 		})
-		.then(function(response){
-			return Promise.resolve(checkStatus(response)); //返回正常，调用状态码检查
-		})
-		.catch(function(err){
-			return Promise.reject(checkCode(err));
-		})
+
 	}
 }

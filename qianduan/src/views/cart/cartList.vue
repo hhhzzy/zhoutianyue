@@ -18,6 +18,7 @@
 				<div class="pageboder">
 			        <div id="content" data-role="content">
 			            <ul class="carProList jCarProList">
+			            	{{cartList}}
 			            	 <li v-for=" val in cartList ">
 			                    <div class="left inputBox">
 			                        <input type="checkbox" v-bind:checked=" val.goods.boolSel " name="checkbox-1-set" class="regular-checkbox list-checkbox" />
@@ -65,23 +66,23 @@
 		data(){
 			return{
 				goods:[],
-				cartList:[]
+//				cartList:[]
 			}
 		},
 		computed:{
-//			cartList(){  //进来时候渲染数据
+			cartList(){  //进来时候渲染数据
 //				this.$http.post("http://localhost:3002/api/cart")
 //						  .then(function(data){
 //						  		if(data.data.data){
-//						  			console.log(data.data.data);
+//						  			console.log(data.data.data,"444");
 //									return data.data.data;
 //						  		}
 //						  })
 //						  .catch(function(err){
 //						  		console.log(err);
 //						  })
-////				return this.$store.state.cart.cartList;
-//			},
+				return this.$store.state.cart.cartList;
+			},
 			calculate(){  //计算总价和总数
 				return this.$store.getters.calculate;
 			}
@@ -99,23 +100,25 @@
 			allChk(bool){  //全选
 				this.$store.dispatch('all_chk',bool);
 			},
-			getCart(){
+			getCart(){ //获取购物车的商品
 				var _this = this;
-				this.$http.post("http://localhost:3002/api/cart")
-						  .then(function(data){
-						  		if(data.data.data){
-						  			var obj = data.data.data;
-						  			_this.cartList = data.data.data;
-						  			_this.$store.dispatch("set_cartList",obj);
-						  		}
-						  })
-						  .catch(function(err){
-						  		console.log(err);
-						  })
+//				this.$http.post("http://localhost:3002/api/cart")
+//						  .then(function(data){
+//						  		if(data.data.data){
+//						  			var obj = data.data.data;
+//						  			_this.cartList = data.data.data;
+//						  			//把购物车的商品存储到state中的cartList中
+//						  			_this.$store.dispatch("set_cartList",obj);
+//						  		}
+//						  })
+//						  .catch(function(err){
+//						  		console.log(err);
+//						  })
 			}
 		},
 		mounted(){
-			this.getCart();
+			//刚进来的时候加载数据
+//			this.getCart();
 		}
 	}
 </script>
@@ -133,7 +136,7 @@
 .schoolTop .uEdit{position: absolute; right: 4%; top: 10%; font-size: 0.26rem;}
 .carProList{font-size: 0.26rem;margin-top: 6%;margin-bottom: 2rem;}
 .carProList li{padding: 4% 0 2%; overflow: hidden;}
-.carProList li .inputBox{width: 10%;}
+.carProList li .inputBox{width: 10%;position: relative;}
 .carProList li .picText{position: relative; width: 90%; padding-bottom: 2%; border-bottom: 1px solid #dedede;}
 .carProList li .picText .uImg{display: block; overflow: hidden; width: 21.52%; padding: 10.76% 0; position: relative;width: 1.44rem;height: 1.44rem;}
 .carProList li .picText img{width: 100%; position: absolute; left: 0; top: 0; }
@@ -162,7 +165,7 @@
 .inputBox .jAllOk{margin-top: 0px;z-index: -1;}
 .inputBox span{margin-left: 10px;}
 .inputBox .checked:after {content: ' '; width: 100%; height: 100%; border-radius: 100%; position: absolute; top: 0;	left: 0; background: url(../../assets/images/iconRadio.jpg) no-repeat; -webkit-background-size: 100%; border-radius: 150%;}
-.shopCarEdit{position: fixed;bottom:0.9rem;width: 100%;height: 1.2rem;overflow: hidden;background: #f0f0f0;border-bottom: 0.2rem solid white;} 
+.shopCarEdit{max-width: 750px;position: fixed;bottom:0.9rem;width: 100%;height: 1.2rem;overflow: hidden;background: #f0f0f0;border-bottom: 0.2rem solid white;} 
 .shopCarEdit .regular-checkbox + label {width: 1.1em; height: 1.1em;}
 .shopCarEdit .inputBox{padding-top: 4%; width: 21.1%;color: #333333; font-size: 0.3rem;}
 .shopCarEdit .text{;width: 50.78%; font-size: 0.26rem; color: #333333; text-align: left; padding:0.16rem 2% 0 3%;}

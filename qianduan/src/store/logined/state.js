@@ -1,3 +1,3 @@
 module.exports = {
-	token:false
+	token:window.localStorage.getItem("logined") ? true : false,
 }
