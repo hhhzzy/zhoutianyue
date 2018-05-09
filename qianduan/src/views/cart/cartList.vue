@@ -18,11 +18,10 @@
 				<div class="pageboder">
 			        <div id="content" data-role="content">
 			            <ul class="carProList jCarProList">
-			            	{{cartList}}
 			            	 <li v-for=" val in cartList ">
 			                    <div class="left inputBox">
-			                        <input type="checkbox" v-bind:checked=" val.goods.boolSel " name="checkbox-1-set" class="regular-checkbox list-checkbox" />
-			                        <label class="jCheckbox" v-bind:class=" val.goods.boolSel?'checked':'' " @click="changeChk(val)"></label>
+			                        <input type="checkbox" v-bind:checked=" val.boolSel " name="checkbox-1-set" class="regular-checkbox list-checkbox" />
+			                        <label class="jCheckbox" v-bind:class=" val.boolSel?'checked':'' " @click="changeChk(val)"></label>
 			                    </div>
 			                    <div class="right picText">
 			                        <a href="">
@@ -62,25 +61,22 @@
 </template>
 
 <script>
+	import store from "../../store/index.js"
 	export default{
 		data(){
 			return{
 				goods:[],
-//				cartList:[]
 			}
+		},
+		beforeRouteEnter(to,from,next){  //组件内的路由，组件还没有初始化，没有this
+			//把购物车的商品存储到state中的cartList中
+			Promise.all([store.dispatch("set_cartList")])   //Promise.all : 参数是数组对象，当参数执行完成之后在执行then()里面.
+				   .then(function(){
+						next();
+				   })
 		},
 		computed:{
 			cartList(){  //进来时候渲染数据
-//				this.$http.post("http://localhost:3002/api/cart")
-//						  .then(function(data){
-//						  		if(data.data.data){
-//						  			console.log(data.data.data,"444");
-//									return data.data.data;
-//						  		}
-//						  })
-//						  .catch(function(err){
-//						  		console.log(err);
-//						  })
 				return this.$store.state.cart.cartList;
 			},
 			calculate(){  //计算总价和总数
@@ -100,26 +96,11 @@
 			allChk(bool){  //全选
 				this.$store.dispatch('all_chk',bool);
 			},
-			getCart(){ //获取购物车的商品
-				var _this = this;
-//				this.$http.post("http://localhost:3002/api/cart")
-//						  .then(function(data){
-//						  		if(data.data.data){
-//						  			var obj = data.data.data;
-//						  			_this.cartList = data.data.data;
-//						  			//把购物车的商品存储到state中的cartList中
-//						  			_this.$store.dispatch("set_cartList",obj);
-//						  		}
-//						  })
-//						  .catch(function(err){
-//						  		console.log(err);
-//						  })
-			}
 		},
 		mounted(){
-			//刚进来的时候加载数据
-//			this.getCart();
-		}
+
+		},
+
 	}
 </script>
 

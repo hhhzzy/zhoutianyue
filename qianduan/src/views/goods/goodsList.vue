@@ -136,17 +136,15 @@
 						goodsId : obj._id
 				  	})
 					.then(function(res){
-						console.log(_this.$store)
 						//判断用户是否登录，登录了才能够加入购物车，没登录跳到登录页面
 						if(localStorage.logined){
-							_this.$store.dispatch("add_cart",{obj});
+//							_this.$store.dispatch("add_cart",{obj});
 						}else{
 							_this.$router.push({
 								path:"/login",
 								query:{redirect:_this.$route.fullPath} //把当前页面的地址带过去，登录成功后返回当前页面
 							});
 						}
-						
 					});
 					
 				

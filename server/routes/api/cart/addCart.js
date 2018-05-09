@@ -11,7 +11,8 @@ router.post("/",function(req,res){
 	var cartList= {
 		goodsId : goodsId,
 		goods : goodsId, //这个是子表的关联查询的外键
-		sellCount : 1
+		sellCount : 1,
+		boolSel : true  //加入购物车的时候第一次默认选中
 	}
 	//通过商品id查询商品信息
 	goodsModel.find({_id:goodsId})

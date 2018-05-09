@@ -43,6 +43,8 @@ module.exports = function(app){
 	app.use('/api/addCart',require("./api/cart/addCart.js"));  //加入购物车
 	app.use('/api/decreaseCart',require("./api/cart/decreaseCart.js"));  //减少商品数量
 	app.use('/api/cart',require("./api/cart/cart.js"));  //购物车
+	app.use('/api/chkCart',require("./api/cart/chkCart.js"));  //减少商品数量
+	
 	app.use('/api/blog',require("./api/blog/blog.js"));  //关于我们
 //	app.use('/api/articleDetail',require("./api/article/articleDetail.js"));  //文章详细页查询
 	app.use('/api/register',require("./api/register.js"))//用户注册
