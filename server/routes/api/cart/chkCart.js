@@ -33,7 +33,6 @@ router.post("/",function(req,res){
 		if(bool == "true"){
 			cartModel.update({},{'$set':{boolSel:true}},{multi:true,new:true})
 					  .then(function(data){
-					  		console.log(data)
 					  		return res.send({
 								"err":0,
 								"msg":"成功",
@@ -47,7 +46,6 @@ router.post("/",function(req,res){
 		}else{
 			cartModel.update({},{'$set':{boolSel:false}},{new:true,multi:true})
 					  .then(function(data){
-					  		console.log(data)
 					  		return res.send({
 								"err":0,
 								"msg":"成功",
@@ -59,22 +57,6 @@ router.post("/",function(req,res){
 				 			if(err) throw err;
 				 	  })
 		}
-//		cartModel.find({_id:cartListId})
-//				 .then(function(data){
-//				 	cartModel.update({_id:cartListId},{"$set":{boolSel:!data[0].boolSel}})
-//							 .then(function(doc){
-//									return res.send({
-//										"err":0,
-//										"msg":"成功",
-//										"success":true,
-//										"data":doc
-//									});
-//							 })
-//							 .catch(function(err){
-//							 		if(err) throw err;
-//							 })
-//				 })
-
 	}
 })
 

@@ -6,6 +6,7 @@ router.get("/",function(req,res){
 	res.send("这是购物车页面");
 })
 router.post("/",function(req,res){
+	console.log(req)
 	cartModel.find()
 			 .populate({path:'goods'}) //关联查询，
 			 .then(function(data){

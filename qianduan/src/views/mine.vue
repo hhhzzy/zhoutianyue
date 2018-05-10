@@ -12,7 +12,7 @@
 						<dd class="child-5"><a href=""><span class="uText right">未绑定</span>微信</a></dd>
 						<dt>安全设置</dt>
 						<dd><a href=""><span class="uText right">未绑定</span>登陆密码</a></dd>
-						<dd><a class="borNoBtm" @click="quit()" href="">退出登录</a></dd>
+						<dd><a class="borNoBtm" @click="quit()" href="javascript:;">退出登录</a></dd>
 					</dl><!-- msgList -->
 				</div><!-- accountMsg -->
 			</div><!--content-->
@@ -28,14 +28,24 @@
 		},
 		methods:{
 			logined(){//判断是够已经登录
-				if(!window.localStorage.logined){
+				if(window.localStorage.logined != "true"){
 					this.$router.replace('/login');
 				}
 			},
-			quit(){ //退出，删除localStorage里面的值
-				window.localStorage.removeItem("logined");
-				window.localStorage.removeItem("name");
-				window.localStorage.removeItem("password");
+			quit(){
+				var _this = this;
+				//退出
+				this.$http.post("http://localhost:3002/api/quit")
+						  .then(function(data){	
+						  		//退出，删除localStorage里面的值
+								window.localStorage.removeItem("name");
+								window.localStorage.removeItem("password");
+								_this.$store.dispatch('logined',data.data.logined);
+								_this.$router.replace("/login");
+						  })
+						  .catch(function(err){
+						  		if(err) throw err;
+						  });
 			}
 		},
 		mounted(){

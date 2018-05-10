@@ -35,10 +35,12 @@ router.post("/",function(req,res){
 			}else{
 				user.create(userInfo,function(err,doc){
 					if(err) throw err;
+					req.session.user = doc;
 					res.send({
 						"err":0,
 						"msg":"注册成功",
-						"data":doc
+						"data":doc,
+						"logined":true
 					})
 				});
 			}

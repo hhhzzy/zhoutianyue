@@ -7,6 +7,7 @@ router.get("/",function(req,res){
 router.post("/",function(req,res){
 	const name = req.body.name;
 	const password = req.body.password;
+	console.log(name)
 	user.findOne({name:name,password:password})
 		.then(function(data){
 			if(!data){
@@ -15,10 +16,12 @@ router.post("/",function(req,res){
 					"msg":"用户名或者密码错误"
 				})
 			}else{
+				req.session.user = data;
 				return res.send({
 					"err":0,
 					"msg":"登录成功",
-					"data":data
+					"data":data,
+					"logined":true
 				})
 			}
 		})

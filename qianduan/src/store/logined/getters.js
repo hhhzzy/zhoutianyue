@@ -1,5 +1,5 @@
 export default {
 	logined(state){
-		return state.token;
+		return state.logined;
 	}
 }

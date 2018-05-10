@@ -69,13 +69,14 @@ router.beforeEach(function (to, from, next) {    //to.path:即将进入的路由
 	 * 判断，如果需要登录的话，就跳转到登录页面，并且记录下要回到的路劲，登录成功回到原页面
 	 *
 	 */
-	if(to.matched.some(record => record.meta.mustLogin)){	
-		if(window.localStorage.logined){
-			next()
+	if(to.matched.some(record => record.meta.mustLogin)){
+		//发送请求，判断登录是否过期
+		if(window.localStorage.logined == "true"){
+			next();
 		}else{
 			next({
 				path:"/login",
-				query:{redirect:to.fullPath}//跳转到登录页面的时候带着本页面的路由过去，登录成功后可以返回本页面
+				query:{redirect:from.path}//跳转到登录页面的时候带着本页面的路由过去，登录成功后可以返回本页面
 			});
 		}
 	}else{
@@ -86,6 +87,8 @@ router.beforeEach(function (to, from, next) {    //to.path:即将进入的路由
 //引入axios
 import axios from 'axios'
 //使用get获取本地的数据文件时候，应该把文件放在static文件夹里面，这个文件夹是vue-cli创建时候暴露的文件夹
+//设置axios允许携带cookie,这样就不会每一次请求都会让服务器以为是一次新的请求，在服务器创建新的session
+axios.defaults.withCredentials = true;
 //axios的一些配置，比如发送请求显示loading，请求回来loading消失之类的
 axios.interceptors.request.use(function (config) {  //配置发送请求的信息
 	store.dispatch('showLoading');

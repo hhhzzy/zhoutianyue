@@ -49,6 +49,7 @@ module.exports = function(app){
 //	app.use('/api/articleDetail',require("./api/article/articleDetail.js"));  //文章详细页查询
 	app.use('/api/register',require("./api/register.js"))//用户注册
 	app.use('/api/login',require("./api/login.js"))//用户登录
+	app.use('/api/quit',require("./api/quit.js"))//用户退出
 	//文章类型
 	app.use('/api/learn/learnType',require("./api/learn/learnType.js"));  //文章类型
 	app.use('/api/learn/learn',require("./api/learn/learn.js"));  //文章

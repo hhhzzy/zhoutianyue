@@ -2,6 +2,8 @@ import axios from 'axios'
 import qs from "qs"   //格式化表单的插件
 import store from '../store/index.js'
 //使用get获取本地的数据文件时候，应该把文件放在static文件夹里面，这个文件夹是vue-cli创建时候暴露的文件夹
+//设置axios允许携带cookie,这样就不会每一次请求都会让服务器以为是一次新的请求，在服务器创建新的session
+axios.defaults.withCredentials = true;
 //axios的一些配置，比如发送请求显示loading，请求回来loading消失之类的
 axios.interceptors.request.use(function (config) {  //配置发送请求的信息
 	store.dispatch('showLoading');

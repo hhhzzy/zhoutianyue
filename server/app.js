@@ -17,7 +17,6 @@ var common = require("./common/common");
 var routes = require("./routes/index.js");
 
 var app = express();
-//app.use(cors());//跨域模块
 //设置跨域访问
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:8080");//设置允许跨域的域名
@@ -25,6 +24,7 @@ app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("X-Powered-By",' 3.2.1')
     res.header('Access-Control-Allow-Credentials', true);//表示允许发送cookie
+    res.header('Access-Control-Max-Age',1728000);//设置options请求的时间，在20天内只会发出一次允许跨域的options请求
     next();
 });
 //公用js的，侧边导航高亮
@@ -80,7 +80,7 @@ app.locals.dateFormat = date.dateFormat;
 app.use(function(req,res,next){
 	res.locals.admin = req.session.admin  //管理员的信息
 	res.locals.error = req.flash('error').toString();
-  res.locals.success = req.flash('success').toString();
+  	res.locals.success = req.flash('success').toString();
 	next();
 })
 

@@ -20,6 +20,7 @@ router.post("/",function(req,res){
 			  		cartModel.find({goodsId:goodsId})
 			  				 .then(function(data){
 			  				 	if(data == ""){//新增商品
+			  				 		console.log(req.session.admin)
 			  				 		cartModel.create(cartList,function(err,doc){
 			  				 				 	return res.send({
 													"err":0,
