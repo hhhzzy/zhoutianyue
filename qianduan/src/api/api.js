@@ -83,6 +83,5 @@ export default{
 				reject(checkCode(err));
 			})
 		})
-
 	}
 }

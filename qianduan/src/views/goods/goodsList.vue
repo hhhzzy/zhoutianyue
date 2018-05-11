@@ -36,6 +36,7 @@
 			<div v-if="tipsShow" class="footer-tips">已经到底了....</div>
 	      	<router-view :goodsList="proData[0]"></router-view>
       </div>
+      <shalter v-if="showSha" @showSha="getShowSha"  :shaCon="shaCon"></shalter>
 	</div>
   	
 </template>
@@ -47,6 +48,8 @@
 	export default{
 		data(){
 			return{
+				showSha:false,//是否显示遮罩层
+				shaCon:"",//遮罩层里面的内容
 				proData:[],
 				cur:0,
 				fixed:false,
@@ -137,14 +140,21 @@
 					http.post('http://localhost:3002/api/addCart',{
 							goodsId : obj._id
 					    })
+					 	.then(function(data){
+					 		if(data.data.err == "1"){
+					 			_this.showSha = true;
+					 			_this.shaCon = data.data.msg;
+					 		}
+					 	})
 				}else{
 					_this.$router.push({
 						path:"/login",
 						query:{redirect:_this.$route.fullPath} //把当前页面的地址带过去，登录成功后返回当前页面
 					});
 				}
-				
-				
+			},
+			getShowSha(data){   //得到从子组件传过来的弹出层的状态
+				this.showSha = data;
 			}
 		},
 		mounted(){
@@ -190,7 +200,7 @@
 .classify-list dd{width: 33%;float: left;text-align: center;margin-bottom: 0.35rem;}
 .classify-list span{font-size:0.24rem;display: block; }
 .classify-list dd img{width: 100%;}
-.subProList{width: 100%; margin-left:32%;margin-bottom: 0.9rem;}
+.subProList{width:68%; margin-left:32%;margin-bottom: 0.9rem;}
 .subProList li{width: 100%; border-bottom: 1px solid #dedede; font-size: 0.26rem;overflow: hidden;margin-bottom: 10px;padding-bottom: 5px;}
 .subProList li .uImg{display: block; overflow: hidden; position: relative; width: 100%;height: 2rem;}
 .subProList li .uImg img{display: block; width: 100%; position: absolute; left: 0; top: 0;}

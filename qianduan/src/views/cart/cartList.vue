@@ -51,7 +51,7 @@
 		               <label class="jAllOk" v-bind:class=" calculate.allchk?'checked':'' "></label>
 		               <span>全选</span>
 		           </div> <!-- inputBox -->
-		           <h1 class="operate jOperate right">结算(<span class="buy-num">1</span>)</h1>
+		           <h1 @click="pay" class="operate jOperate right">结算(<span class="buy-num">{{calculate.cartNum}}</span>)</h1>
 		           <p class="right text jPay">
 		           		<i class="allMoney">合计:￥{{calculate.cartMoney}}</i>
 		           		<i class="allNum">数量：{{calculate.cartNum}}</i>
@@ -96,6 +96,9 @@
 			allChk(bool){  //全选
 				this.$store.dispatch('all_chk',bool);
 			},
+			pay(){//结算
+				
+			}
 		},
 		mounted(){
 

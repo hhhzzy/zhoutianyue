@@ -63,7 +63,8 @@
 							history.setItem("name",res.data.data.name);
 							history.setItem("password",res.data.data.password);
 					 		_this.$store.dispatch("logined",res.data.logined);//注册成功，发送tooken说明登录了
-					 		_this.$router.replace(_this.$route.query.redirect);//取代当前的路由，使其登录成功的时候不能回退
+					 		let redirect = _this.$route.query.redirect == "/login" ? "/index" : _this.$route.query.redirect;
+					 		_this.$router.replace(redirect);//取代当前的路由，使其登录成功的时候不能回退
 						}
 					})
 					.catch(function(err){

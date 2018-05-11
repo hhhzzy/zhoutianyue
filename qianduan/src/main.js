@@ -25,6 +25,7 @@ import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper);
 //引入store
 import store from './store/index.js'
+
 //切换效果
 const history = window.sessionStorage;
 history.clear();
@@ -71,14 +72,19 @@ router.beforeEach(function (to, from, next) {    //to.path:即将进入的路由
 	 */
 	if(to.matched.some(record => record.meta.mustLogin)){
 		//发送请求，判断登录是否过期
-		if(window.localStorage.logined == "true"){
-			next();
-		}else{
-			next({
-				path:"/login",
-				query:{redirect:from.path}//跳转到登录页面的时候带着本页面的路由过去，登录成功后可以返回本页面
-			});
-		}
+		axios.post('http://localhost:3002/api/getLogined')
+		.then(function(data){
+			store.dispatch('logined',data.data.logined);
+			if(window.localStorage.logined == "true"){
+				next();
+			}else{
+				next({
+					path:"/login",
+					query:{redirect:from.path}//跳转到登录页面的时候带着本页面的路由过去，登录成功后可以返回本页面
+				});
+			}
+		});
+		
 	}else{
 		next();
 	}

@@ -9,5 +9,6 @@ const cartScheam = new Schema({
 	sellCount : "Number",
 	price : "Number",
 	boolSel : "Boolean",//加入购物车的时候第一次默认选中
+	userId:'String'
 },{timestamps: {createdAt: 'created', updatedAt: 'updated'}});
 module.exports = mongo.model("cart",cartScheam);

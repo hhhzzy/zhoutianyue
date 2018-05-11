@@ -7,7 +7,6 @@ router.get("/",function(req,res){
 router.post("/",function(req,res){
 	const name = req.body.name;
 	const password = req.body.password;
-	console.log(name)
 	user.findOne({name:name,password:password})
 		.then(function(data){
 			if(!data){
